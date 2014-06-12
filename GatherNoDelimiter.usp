@@ -1,0 +1,85 @@
+/*
+University of Washington
+Classroom Technology & Events
+David Cornwell
+*/
+
+//Compiler Directives
+
+#help_begin
+
+GatherNoDelimiter - DCC
+I wrote this module while very tired, but it does what it's supposed 
+to.  It gathers on the input and outputs the concatenated string wit-
+hout needing a delimiter.  Useful for hardware with inconsistent ser-
+ial communications and poorly developed com standards.
+
+#help_end
+
+#Default_Volatile
+#Enable_Trace
+#Print_to_Trace
+#CATEGORY "46" "UW/CTE Custom Modules"
+
+#define_constant debug 0
+#define_constant bunchSize 8
+#define_constant maxBunchSize 128
+
+//IO Variables
+
+buffer_input rx$[maxBunchSize];
+
+string_output gathered_rx$;
+
+//Global Variables
+
+integer feet, tallying;
+
+//Functions
+
+function ComeMisterFunctionMan() {
+	string gatherMeRX$[maxBunchSize];
+	integer bunch;
+	 
+	bunch = 0;
+	tallying = 1;
+ 	
+ 	while(!bunch) {
+ 		if(debug && feet >= 6) print("%u foot,", feet);
+ 		feet = feet + 1;
+ 		
+ 		gatherMeRX$ = gatherMeRX$ + rx$;
+ 		clearbuffer(rx$);
+ 			 		 		
+ 		if(feet > bunchSize) {
+ 			bunch = 1;
+ 			if(debug) print("BUNCH!");
+ 		}
+ 			
+ 		delay(1);
+ 	}
+ 	
+ 	gathered_rx$ = gatherMeRX$;
+ 	
+ 	if(debug) print("Daylight come.");
+}
+
+//Events
+
+change rx$ {
+	feet = 0;
+	
+	if(debug) print("Hey-oh!");
+	
+	if(!tallying) {
+		ComeMisterFunctionMan();
+	}
+}
+
+//Main (Startup Code)
+
+Function Main()
+{
+    waitforinitializationcomplete();
+    
+}
