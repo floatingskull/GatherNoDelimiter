@@ -45,7 +45,7 @@ function ComeMisterFunctionMan() {
 	tallying = 1;
  	
  	while(!bunch) {
- 		if(debug && feet >= 6) print("%u foot,", feet);
+ 		if(debug) print("%u foot,", feet);
  		feet = feet + 1;
  		
  		gatherMeRX$ = gatherMeRX$ + rx$;
@@ -56,20 +56,22 @@ function ComeMisterFunctionMan() {
  			if(debug) print("BUNCH!");
  		}
  			
- 		delay(1);
+ 		delay(5);
  	}
  	
  	gathered_rx$ = gatherMeRX$;
  	
- 	if(debug) print("Daylight come.");
+ 	tallying = 0;
+ 	
+ 	if(debug) print("Daylight Come.");
 }
 
 //Events
 
 change rx$ {
-	feet = 0;
+	feet = 6;
 	
-	if(debug) print("Hey-oh!");
+	if(debug) print("Hey-oh");
 	
 	if(!tallying) {
 		ComeMisterFunctionMan();
