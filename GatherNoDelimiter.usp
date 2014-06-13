@@ -71,7 +71,7 @@ function ComeMisterFunctionMan() {
 change rx$ {
 	feet = 6;
 	
-	if(debug) print("Hey-oh");
+	if(debug) print("Day-O");
 	
 	if(!tallying) {
 		ComeMisterFunctionMan();
